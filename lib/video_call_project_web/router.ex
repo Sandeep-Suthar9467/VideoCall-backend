@@ -6,13 +6,16 @@ defmodule VideoCallProjectWeb.Router do
   end
 
   pipeline :auth do
+    plug CORSPlug
+
     plug VideoCallProject.Guardian.AuthPipelne
   end
 
   scope "/api", VideoCallProjectWeb do
     pipe_through :api
     # resources "/users", UserController, except: [:new, :edit]
-    post "/users", UserController, :register
+    get "/users", UserController, :index
+    post "/user", UserController, :register
     post "session/new", SessionController, :new
   end
 

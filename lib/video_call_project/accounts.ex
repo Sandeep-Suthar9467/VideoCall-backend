@@ -49,6 +49,20 @@ defmodule VideoCallProject.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+  # def create_user(attrs \\ %{}) do
+  #   email = attrs.user.email
+  #   IO.inspect(email)
+  #   case get_by_email(email) do
+  #     user ->
+  #       {:error, :already_found}
+  #     _
+  #       %User{}
+  #           |> User.registration_changeset(attrs)
+  #           |> Repo.insert()      # IO.puts(result)
+
+  #     end
+  # end
+
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.registration_changeset(attrs)
@@ -67,6 +81,8 @@ defmodule VideoCallProject.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+
+
   def update_user(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)

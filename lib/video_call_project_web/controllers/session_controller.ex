@@ -18,9 +18,15 @@ defmodule VideoCallProjectWeb.SessionController do
                 |> put_status(:created)
                 |> render("token.json", %{access_token: access_token})
 
+            {:error, :not_found} ->
+                body = Jason.encode!(%{error: "user not found"})
+
+                conn
+                 |> send_resp(404, body)
+
             {:error, :unauthorised} ->
                 body = Jason.encode!(%{error: "unauthorised"})
-                
+
                 conn
                  |> send_resp(401, body)
         end
@@ -31,14 +37,14 @@ defmodule VideoCallProjectWeb.SessionController do
 
         case Guardian.exchange(refresh_token, "refresh", "access") do
             {:ok, _old_stuff, {new_access_token, _new_claims}} ->
-                conn 
+                conn
                  |> put_status(:created)
                  |> render("token.json", %{access_token: new_access_token})
 
             {:error, _reason} ->
                 body = Jason.encode!(%{error: "unauthorized"})
 
-                conn 
+                conn
                 |> send_resp(401, body)
         end
     end

@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :video_call_project, VideoCallProject.Repo,
-  username: "admin",
-  password: "admin",
+  username: "postgres",
+  password: "postgres",
   hostname: "localhost",
   database: "video_call_project_dev",
   stacktrace: true,
